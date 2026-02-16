@@ -1,7 +1,7 @@
 [package]
 name = "trial"
 version = "0.1.0"
-description = "Created with Anchor"
+description = "trial — token launchpad with bonding curve on Solana"
 edition = "2021"
 
 [lib]
@@ -9,20 +9,12 @@ crate-type = ["cdylib", "lib"]
 name = "trial"
 
 [features]
-default = []
-cpi = ["no-entrypoint"]
 no-entrypoint = []
 no-idl = []
 no-log-ix-name = []
-idl-build = ["anchor-lang/idl-build"]
-anchor-debug = []
-custom-heap = []
-custom-panic = []
-
+cpi = ["no-entrypoint"]
+default = []
 
 [dependencies]
-anchor-lang = "0.32.1"
-
-
-[lints.rust]
-unexpected_cfgs = { level = "warn", check-cfg = ['cfg(target_os, values("solana"))'] }
+anchor-lang = { version = "0.30.1", features = ["init-if-needed"] }
+anchor-spl  = { version = "0.30.1", features = ["associated-token"] }
