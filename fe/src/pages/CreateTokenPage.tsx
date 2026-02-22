@@ -7,10 +7,10 @@ export default function CreateTokenPage() {
 
   if (!connected) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-white mb-4">Connect Wallet to Create Token</h1>
-          <p className="text-zinc-400 mb-8">
+      <div className="min-h-screen bg-black flex items-center justify-center p-6">
+        <div className="text-center max-w-sm">
+          <h1 className="text-3xl font-bold text-white mb-3">Connect Wallet</h1>
+          <p className="text-zinc-400 text-sm mb-8">
             You need to connect your Solana wallet to launch a token
           </p>
           <WalletMultiButton />
@@ -20,7 +20,7 @@ export default function CreateTokenPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-900 py-12">
+    <div className="min-h-screen bg-black py-12">
       <CreateTokenForm />
     </div>
   );

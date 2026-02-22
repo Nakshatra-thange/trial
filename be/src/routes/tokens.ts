@@ -47,6 +47,26 @@ app.get("/", async (c) => {
     return c.json({ tokens: tokensWithPrice });
   });
 
+// GET /tokens/search?q=<query> — search by name or symbol
+app.get("/search", async (c) => {
+  const q = c.req.query("q")?.toLowerCase();
+
+  if (!q) {
+    return c.json({ error: "Query parameter 'q' required" }, 400);
+  }
+
+  const result = await db
+    .select()
+    .from(tokens)
+    .where(
+      sql`LOWER(${tokens.name}) LIKE ${`%${q}%`} OR LOWER(${tokens.symbol}) LIKE ${`%${q}%`}`
+    )
+    .limit(20);
+
+  return c.json({ tokens: result });
+});
+
+
 // GET /tokens/:mint — single token details
 app.get("/:mint", async (c) => {
   const mint = c.req.param("mint");
@@ -89,23 +109,5 @@ app.get("/:mint/trades", async (c) => {
   return c.json({ trades: result });
 });
 
-// GET /tokens/search?q=<query> — search by name or symbol
-app.get("/search", async (c) => {
-  const q = c.req.query("q")?.toLowerCase();
-
-  if (!q) {
-    return c.json({ error: "Query parameter 'q' required" }, 400);
-  }
-
-  const result = await db
-    .select()
-    .from(tokens)
-    .where(
-      sql`LOWER(${tokens.name}) LIKE ${`%${q}%`} OR LOWER(${tokens.symbol}) LIKE ${`%${q}%`}`
-    )
-    .limit(20);
-
-  return c.json({ tokens: result });
-});
 
 export default app;

@@ -138,9 +138,9 @@ export default function SellWidget({ mint, virtualSol, virtualToken, isGraduated
       {/* Token Input */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <label className="text-sm text-zinc-400">You sell (tokens)</label>
-          <span className="text-xs text-zinc-500">
-            Balance: {userTokenBalance.toLocaleString()} tokens
+          <label className="text-xs text-zinc-500 uppercase tracking-wide">You sell (tokens)</label>
+          <span className="text-xs text-zinc-600 font-mono">
+            {userTokenBalance.toLocaleString()} tokens
           </span>
         </div>
         <div className="flex gap-2">
@@ -150,12 +150,12 @@ export default function SellWidget({ mint, virtualSol, virtualToken, isGraduated
             onChange={(e) => setTokenInput(e.target.value)}
             placeholder="0"
             step="1"
-            className="flex-1 px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-600 text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500"
+            className="flex-1 px-4 py-3 rounded-xl bg-black border border-zinc-700 text-white placeholder-zinc-600 focus:outline-none focus:border-red-500 transition-colors duration-200 font-mono"
             disabled={isLoading || isGraduated}
           />
           <button
             onClick={setMaxTokens}
-            className="px-4 py-3 rounded-xl border border-zinc-600 text-zinc-400 hover:text-white hover:border-zinc-500 text-sm font-medium"
+            className="px-4 py-3 rounded-xl border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 text-xs font-medium transition-colors duration-200 disabled:opacity-40"
             disabled={isLoading || isGraduated}
           >
             MAX
@@ -165,9 +165,9 @@ export default function SellWidget({ mint, virtualSol, virtualToken, isGraduated
 
       {/* SOL Out */}
       <div>
-        <label className="text-sm text-zinc-400 mb-2 block">You receive (SOL)</label>
-        <div className="px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-600">
-          <p className="text-white font-mono">
+        <label className="text-xs text-zinc-500 uppercase tracking-wide mb-2 block">You receive (SOL)</label>
+        <div className="px-4 py-3 rounded-xl bg-black border border-zinc-700">
+          <p className="text-white font-mono text-sm">
             {solOut > 0 ? solOut.toFixed(6) : "0"}
           </p>
         </div>
@@ -177,13 +177,13 @@ export default function SellWidget({ mint, virtualSol, virtualToken, isGraduated
       <button
         onClick={handleSell}
         disabled={isLoading || !tokenInput || parseFloat(tokenInput) <= 0 || isGraduated}
-        className="w-full py-4 rounded-xl bg-red-600 hover:bg-red-500 disabled:bg-zinc-700 disabled:cursor-not-allowed text-white font-semibold text-lg transition-colors"
+        className="w-full py-3.5 rounded-xl bg-red-500 hover:bg-red-600 disabled:bg-zinc-800 disabled:text-zinc-600 disabled:cursor-not-allowed text-white font-semibold transition-colors duration-200"
       >
-        {isLoading ? "Selling..." : isGraduated ? "Trading Closed" : "Sell Now 📉"}
+        {isLoading ? "Selling..." : isGraduated ? "Trading Closed" : "Sell Now"}
       </button>
 
       {solOut > 0 && (
-        <p className="text-xs text-zinc-500 text-center">
+        <p className="text-xs text-zinc-600 text-center">
           After 1% platform fee + ~0.000005 SOL network fee
         </p>
       )}

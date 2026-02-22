@@ -36,16 +36,17 @@ export default function PriceChart({ trades, currentPrice }: PriceChartProps) {
       width: chartContainerRef.current.clientWidth,
       height: 400,
       layout: {
-        background: { color: "#18181b" },
-        textColor: "#a1a1aa",
+        background: { color: "#0a0a0a" },
+        textColor: "#6b6b6b",
       },
       grid: {
-        vertLines: { color: "#27272a" },
-        horzLines: { color: "#27272a" },
+        vertLines: { color: "#1a1a1a" },
+        horzLines: { color: "#1a1a1a" },
       },
       timeScale: {
         timeVisible: true,
         secondsVisible: false,
+        borderColor: "#2a2a2a",
       },
     });
 
@@ -53,7 +54,7 @@ export default function PriceChart({ trades, currentPrice }: PriceChartProps) {
      * lightweight-charts v5 syntax
      */
     const lineSeries = chart.addSeries(LineSeries, {
-      color: "#3b82f6",
+      color: "#10b981",
       lineWidth: 2,
     });
 
@@ -102,10 +103,10 @@ export default function PriceChart({ trades, currentPrice }: PriceChartProps) {
   }, [trades]);
 
   return (
-    <div className="bg-zinc-800 rounded-xl p-4">
+    <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-white">Price Chart</h3>
-        <div className="text-2xl font-bold text-blue-400">
+        <h3 className="text-sm font-medium text-zinc-400 uppercase tracking-wide">Price Chart</h3>
+        <div className="text-xl font-bold text-emerald-400 font-mono">
           {currentPrice.toFixed(8)} SOL
         </div>
       </div>

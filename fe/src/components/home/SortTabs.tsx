@@ -13,23 +13,23 @@ const tabs: Array<{ value: SortOption; label: string }> = [
 
 export function SortTabs({ selected, onChange }: SortTabsProps) {
   return (
-    <div className="flex gap-2 border-b border-zinc-700">
+    <div className="flex gap-1 border-b border-zinc-800">
       {tabs.map((tab) => (
         <button
           key={tab.value}
           onClick={() => onChange(tab.value)}
           className={`
-            px-4 py-3 text-sm font-medium transition-colors relative
+            px-5 py-3 text-sm font-medium transition-colors duration-200 relative
             ${
               selected === tab.value
                 ? "text-white"
-                : "text-zinc-400 hover:text-zinc-300"
+                : "text-zinc-500 hover:text-zinc-300"
             }
           `}
         >
           {tab.label}
           {selected === tab.value && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500" />
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500" />
           )}
         </button>
       ))}

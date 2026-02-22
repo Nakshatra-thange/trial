@@ -32,8 +32,6 @@ export default function BuyWidget({ mint, virtualSol, virtualToken, isGraduated,
     });
   }, [wallet, connection]);
 
-  
-
   // Calculate tokens out when SOL input changes
   useEffect(() => {
     if (!solInput || parseFloat(solInput) <= 0) {
@@ -133,9 +131,9 @@ export default function BuyWidget({ mint, virtualSol, virtualToken, isGraduated,
       {/* SOL Input */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <label className="text-sm text-zinc-400">You pay (SOL)</label>
-          <span className="text-xs text-zinc-500">
-            Balance: {userSolBalance.toFixed(4)} SOL
+          <label className="text-xs text-zinc-500 uppercase tracking-wide">You pay (SOL)</label>
+          <span className="text-xs text-zinc-600 font-mono">
+            {userSolBalance.toFixed(4)} SOL
           </span>
         </div>
         <div className="flex gap-2">
@@ -145,12 +143,12 @@ export default function BuyWidget({ mint, virtualSol, virtualToken, isGraduated,
             onChange={(e) => setSolInput(e.target.value)}
             placeholder="0.0"
             step="0.001"
-            className="flex-1 px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-600 text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500"
+            className="flex-1 px-4 py-3 rounded-xl bg-black border border-zinc-700 text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 transition-colors duration-200 font-mono"
             disabled={isLoading || isGraduated}
           />
           <button
             onClick={setMaxSol}
-            className="px-4 py-3 rounded-xl border border-zinc-600 text-zinc-400 hover:text-white hover:border-zinc-500 text-sm font-medium"
+            className="px-4 py-3 rounded-xl border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 text-xs font-medium transition-colors duration-200 disabled:opacity-40"
             disabled={isLoading || isGraduated}
           >
             MAX
@@ -160,9 +158,9 @@ export default function BuyWidget({ mint, virtualSol, virtualToken, isGraduated,
 
       {/* Tokens Out */}
       <div>
-        <label className="text-sm text-zinc-400 mb-2 block">You receive (tokens)</label>
-        <div className="px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-600">
-          <p className="text-white font-mono">
+        <label className="text-xs text-zinc-500 uppercase tracking-wide mb-2 block">You receive (tokens)</label>
+        <div className="px-4 py-3 rounded-xl bg-black border border-zinc-700">
+          <p className="text-white font-mono text-sm">
             {tokensOut > 0 ? tokensOut.toLocaleString(undefined, { maximumFractionDigits: 2 }) : "0"}
           </p>
         </div>
@@ -172,14 +170,14 @@ export default function BuyWidget({ mint, virtualSol, virtualToken, isGraduated,
       <button
         onClick={handleBuy}
         disabled={isLoading || !solInput || parseFloat(solInput) <= 0 || isGraduated}
-        className="w-full py-4 rounded-xl bg-green-600 hover:bg-green-500 disabled:bg-zinc-700 disabled:cursor-not-allowed text-white font-semibold text-lg transition-colors"
+        className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 disabled:bg-zinc-800 disabled:text-zinc-600 disabled:cursor-not-allowed text-white font-semibold transition-colors duration-200"
       >
-        {isLoading ? "Buying..." : isGraduated ? "Trading Closed" : "Buy Now 💎"}
+        {isLoading ? "Buying..." : isGraduated ? "Trading Closed" : "Buy Now"}
       </button>
 
       {tokensOut > 0 && (
-        <p className="text-xs text-zinc-500 text-center">
-          Including 1% platform fee + ~0.000005 SOL network fee
+        <p className="text-xs text-zinc-600 text-center">
+          Includes 1% platform fee + ~0.000005 SOL network fee
         </p>
       )}
     </div>

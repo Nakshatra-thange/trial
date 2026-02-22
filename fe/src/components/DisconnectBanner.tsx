@@ -26,15 +26,15 @@ export function DisconnectBanner() {
   if (!show) return null;
 
   return (
-    <div className="fixed top-0 left-0 right-0 bg-yellow-500/90 text-zinc-900 px-4 py-3 z-50">
+    <div className="fixed top-0 left-0 right-0 bg-amber-500/10 border-b border-amber-500/20 text-amber-400 px-4 py-2.5 z-50 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <p className="font-semibold">Wallet disconnected</p>
+          <p className="font-medium text-sm">Wallet disconnected</p>
         </div>
 
         <button
           onClick={() => setVisible(true)}
-          className="px-4 py-2 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 font-medium text-sm transition-colors"
+          className="px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 font-medium text-xs transition-colors duration-200"
         >
           Reconnect
         </button>

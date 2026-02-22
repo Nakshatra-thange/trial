@@ -5,11 +5,11 @@ import { truncateAddress } from "@/utils/solana";
 import PriceChart from "@/components/token/PriceChart";
 import BuyWidget from "@/components/token/BuyWidget";
 import SellWidget from "@/components/token/SellWidget";
-import {TradeHistory} from "@/components/token/TradeHistory";
+import { TradeHistory } from "@/components/token/TradeHistory";
 import * as Tabs from "@radix-ui/react-tabs";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
-const GRADUATION_THRESHOLD = 85; // SOL
+const GRADUATION_THRESHOLD = 85; 
 
 export function TokenPage() {
   const { mint } = useParams<{ mint: string }>();
@@ -58,10 +58,10 @@ export function TokenPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-zinc-900 flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-zinc-400">Loading token...</p>
+          <div className="w-10 h-10 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-zinc-500 text-sm">Loading token...</p>
         </div>
       </div>
     );
@@ -72,13 +72,13 @@ export function TokenPage() {
   const progressPercent = Math.min(100, (parseFloat(token.realSolBalance) / 1e9 / GRADUATION_THRESHOLD) * 100);
 
   return (
-    <div className="min-h-screen bg-zinc-900 py-8">
+    <div className="min-h-screen bg-black py-8">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <button
             onClick={() => navigate("/")}
-            className="text-zinc-400 hover:text-white"
+            className="flex items-center gap-2 text-zinc-500 hover:text-white text-sm transition-colors duration-200"
           >
             ← Back
           </button>
@@ -87,7 +87,7 @@ export function TokenPage() {
               navigator.clipboard.writeText(window.location.href);
               toast.success("Link copied!");
             }}
-            className="text-zinc-400 hover:text-white"
+            className="text-zinc-500 hover:text-white text-sm transition-colors duration-200"
           >
             Share ↗
           </button>
@@ -96,10 +96,10 @@ export function TokenPage() {
         {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column — Image + Info */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {/* Token Image */}
             {metadata?.image && (
-              <div className="bg-zinc-800 rounded-xl p-4">
+              <div className="bg-zinc-900 rounded-xl p-3 border border-zinc-800">
                 <img
                   src={metadata.image}
                   alt={token.name}
@@ -109,71 +109,73 @@ export function TokenPage() {
             )}
 
             {/* Token Info */}
-            <div className="bg-zinc-800 rounded-xl p-6">
-              <h1 className="text-2xl font-bold text-white mb-1">
-                {token.name} ({token.symbol})
+            <div className="bg-zinc-900 rounded-xl p-5 border border-zinc-800">
+              <h1 className="text-xl font-bold text-white mb-1">
+                {token.name}{" "}
+                <span className="text-zinc-500 font-normal text-base">({token.symbol})</span>
               </h1>
               {metadata?.description && (
-                <p className="text-zinc-400 text-sm mb-4">{metadata.description}</p>
+                <p className="text-zinc-400 text-sm mb-5 leading-relaxed">{metadata.description}</p>
               )}
 
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-zinc-500">Creator</span>
-                  <span className="text-white font-mono">{truncateAddress(token.creator)}</span>
+              <div className="grid grid-cols-1 gap-3 text-sm">
+                <div className="flex justify-between items-center py-2 border-b border-zinc-800">
+                  <span className="text-zinc-500 text-xs uppercase tracking-wide">Creator</span>
+                  <span className="text-white font-mono text-xs">{truncateAddress(token.creator)}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-zinc-500">Market Cap</span>
-                  <span className="text-white">{token.marketCap?.toFixed(2)} SOL</span>
+                <div className="flex justify-between items-center py-2 border-b border-zinc-800">
+                  <span className="text-zinc-500 text-xs uppercase tracking-wide">Market Cap</span>
+                  <span className="text-white font-mono text-sm">{token.marketCap?.toFixed(2)} SOL</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-zinc-500">Total Supply</span>
-                  <span className="text-white">{Math.floor(parseFloat(token.totalSupply) / 1e6).toLocaleString()}</span>
+                <div className="flex justify-between items-center py-2">
+                  <span className="text-zinc-500 text-xs uppercase tracking-wide">Total Supply</span>
+                  <span className="text-white text-sm">{Math.floor(parseFloat(token.totalSupply) / 1e6).toLocaleString()}</span>
                 </div>
               </div>
 
               {/* Graduation Progress */}
-              <div className="mt-6">
-                <div className="flex justify-between text-sm mb-2">
-                  <span className="text-zinc-400">Graduation Progress</span>
-                  <span className="text-zinc-400">
+              <div className="mt-5">
+                <div className="flex justify-between text-xs mb-2">
+                  <span className="text-zinc-500">Graduation Progress</span>
+                  <span className="text-zinc-400 font-mono">
                     {(parseFloat(token.realSolBalance) / 1e9).toFixed(1)} / {GRADUATION_THRESHOLD} SOL
                   </span>
                 </div>
-                <div className="w-full bg-zinc-700 rounded-full h-2">
+                <div className="w-full bg-zinc-800 rounded-full h-1.5">
                   <div
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all"
+                    className="bg-emerald-500 h-1.5 rounded-full transition-all duration-500"
                     style={{ width: `${progressPercent}%` }}
                   />
                 </div>
+                <p className="text-xs text-zinc-600 mt-1 text-right">{progressPercent.toFixed(1)}%</p>
               </div>
 
               {token.isGraduated && (
-                <div className="mt-4 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/30">
-                  <p className="text-yellow-400 text-sm font-medium">🎓 Graduated!</p>
-                  <p className="text-yellow-500/70 text-xs mt-1">Trading is now closed</p>
+                <div className="mt-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                  <p className="text-amber-400 text-sm font-medium">Graduated</p>
+                  <p className="text-amber-600 text-xs mt-0.5">Trading is now closed</p>
                 </div>
               )}
             </div>
           </div>
 
-          {/* Middle Column — Chart */}
-          <div className="lg:col-span-2 space-y-6">
+          {/* Right Columns — Chart + Trade */}
+          <div className="lg:col-span-2 space-y-4">
             <PriceChart trades={trades} currentPrice={token.currentPrice} />
 
             {/* Buy/Sell Tabs */}
-            <div className="bg-zinc-800 rounded-xl p-6">
+            <div className="bg-zinc-900 rounded-xl p-5 border border-zinc-800">
               <Tabs.Root defaultValue="buy">
-                <Tabs.List className="flex border-b border-zinc-700 mb-6">
+                <Tabs.List className="flex border-b border-zinc-800 mb-5">
                   <Tabs.Trigger
                     value="buy"
-                    className="flex-1 py-3 text-center text-zinc-400 data-[state=active]:text-white data-[state=active]:border-b-2 data-[state=active]:border-green-500 transition-colors"
+                    className="flex-1 py-2.5 text-center text-sm font-medium text-zinc-500 data-[state=active]:text-emerald-500 data-[state=active]:border-b-2 data-[state=active]:border-emerald-500 transition-colors duration-200"
                   >
                     Buy
                   </Tabs.Trigger>
                   <Tabs.Trigger
                     value="sell"
-                    className="flex-1 py-3 text-center text-zinc-400 data-[state=active]:text-white data-[state=active]:border-b-2 data-[state=active]:border-red-500 transition-colors"
+                    className="flex-1 py-2.5 text-center text-sm font-medium text-zinc-500 data-[state=active]:text-red-500 data-[state=active]:border-b-2 data-[state=active]:border-red-500 transition-colors duration-200"
                   >
                     Sell
                   </Tabs.Trigger>

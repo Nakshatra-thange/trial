@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 
 interface ImageUploadProps {
   onImageSelect: (file: File) => void;
-  currentImage?: File | null;
+  currentImage?: File | null; // eslint-disable-line @typescript-eslint/no-unused-vars
 }
 
 export default function ImageUpload({ onImageSelect, currentImage }: ImageUploadProps) {
@@ -42,38 +42,41 @@ export default function ImageUpload({ onImageSelect, currentImage }: ImageUpload
   return (
     <div>
       <label className="block text-sm font-medium text-zinc-300 mb-2">
-        Token Image *
+        Token Image <span className="text-zinc-600">*</span>
       </label>
 
       <div
         {...getRootProps()}
         className={`
-          border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors
-          ${isDragActive ? "border-blue-500 bg-blue-500/10" : "border-zinc-600 hover:border-zinc-500"}
+          border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-colors duration-200
+          ${isDragActive
+            ? "border-emerald-500 bg-emerald-500/5"
+            : "border-zinc-700 hover:border-emerald-500 hover:bg-zinc-900/50"
+          }
         `}
       >
         <input {...getInputProps()} />
 
         {preview ? (
-          <div>
+          <div className="flex flex-col items-center">
             <img
               src={preview}
               alt="Token preview"
-              className="w-32 h-32 rounded-xl mx-auto mb-3 object-cover"
+              className="w-40 h-40 rounded-xl mx-auto mb-3 object-cover"
             />
-            <p className="text-sm text-zinc-400">Click or drag to replace</p>
+            <p className="text-sm text-zinc-500">Click or drag to replace</p>
           </div>
         ) : (
-          <div>
-            <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-zinc-700 flex items-center justify-center">
-              <svg className="w-8 h-8 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          <div className="flex flex-col items-center">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center">
+              <svg className="w-6 h-6 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
               </svg>
             </div>
-            <p className="text-zinc-300 mb-1">
+            <p className="text-zinc-300 text-sm mb-1">
               {isDragActive ? "Drop image here" : "Click or drag image"}
             </p>
-            <p className="text-xs text-zinc-500">PNG, JPG, GIF up to 5MB</p>
+            <p className="text-xs text-zinc-600">PNG, JPG, GIF up to 5MB</p>
           </div>
         )}
       </div>
