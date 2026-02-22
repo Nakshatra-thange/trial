@@ -51,7 +51,10 @@ export default function AdminPage() {
     try {
       const response = await fetch(`${API_URL}/api/tokens/hide/${mint}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-key": import.meta.env.VITE_ADMIN_SECRET,
+        },
         body: JSON.stringify({ reason }),
       });
 
@@ -94,7 +97,7 @@ export default function AdminPage() {
             />
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold"
+              className="w-full py-3 rounded-xl bg-amber-600 hover:bg-purple-500 text-white font-semibold"
             >
               Login
             </button>

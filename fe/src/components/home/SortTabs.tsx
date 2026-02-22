@@ -13,7 +13,7 @@ const tabs: Array<{ value: SortOption; label: string }> = [
 
 export function SortTabs({ selected, onChange }: SortTabsProps) {
   return (
-    <div className="flex gap-1 border-b border-zinc-800">
+    <div className="flex gap-1 border-b border-amber-600/20">
       {tabs.map((tab) => (
         <button
           key={tab.value}
@@ -22,14 +22,14 @@ export function SortTabs({ selected, onChange }: SortTabsProps) {
             px-5 py-3 text-sm font-medium transition-colors duration-200 relative
             ${
               selected === tab.value
-                ? "text-white"
-                : "text-zinc-500 hover:text-zinc-300"
+                ? "text-amber-500"
+                : "text-gray-500 hover:text-gray-300"
             }
           `}
         >
           {tab.label}
           {selected === tab.value && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-600" />
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-500" />
           )}
         </button>
       ))}

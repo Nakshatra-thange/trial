@@ -7,18 +7,24 @@ import BuyWidget from "@/components/token/BuyWidget";
 import SellWidget from "@/components/token/SellWidget";
 import { TradeHistory } from "@/components/token/TradeHistory";
 import * as Tabs from "@radix-ui/react-tabs";
+import { useWallet } from "@solana/wallet-adapter-react";
+
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 const GRADUATION_THRESHOLD = 85; 
 
 export function TokenPage() {
   const { mint } = useParams<{ mint: string }>();
+  const { publicKey } = useWallet();
   const navigate = useNavigate();
 
   const [token, setToken] = useState<any>(null);
   const [metadata, setMetadata] = useState<any>(null);
   const [trades, setTrades] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const isCreator =
+  publicKey?.toBase58() === token?.creator;
+  
 
   useEffect(() => {
     if (mint) {
@@ -28,31 +34,80 @@ export function TokenPage() {
     }
   }, [mint]);
 
+  async function hideFromProfile() {
+    await fetch(`${API_URL}/api/tokens/creator/hide/${mint}`, {
+      method: "POST",
+    });
+    toast.success("Hidden from profile");
+    navigate("/")
+  }
+  
+  async function archiveToken() {
+    await fetch(`${API_URL}/api/tokens/creator/archive/${mint}`, {
+      method: "POST",
+    });
+    toast.success("Token archived");
+    navigate("/")
+  
+  }
+
   async function fetchTokenData() {
     try {
-      // Fetch token from backend
+      setIsLoading(true);
+  
+      // ───────── TOKEN FETCH ─────────
       const tokenRes = await fetch(`${API_URL}/api/tokens/${mint}`);
-      if (!tokenRes.ok) throw new Error("Token not found");
+  
+      if (!tokenRes.ok) {
+        console.warn("Token not found:", tokenRes.status);
+        setToken(null);
+        setIsLoading(false);
+        return;
+      }
+  
       const tokenData = await tokenRes.json();
       setToken(tokenData.token);
-
-      // Fetch metadata from IPFS
-      if (tokenData.token.uri) {
-        const metaRes = await fetch(tokenData.token.uri);
-        const metaData = await metaRes.json();
-        setMetadata(metaData);
+  
+      // ───────── METADATA FETCH ─────────
+      const uri = tokenData.token?.uri;
+  
+      if (uri && typeof uri === "string" && uri.startsWith("http")) {
+        try {
+          const metaRes = await fetch(uri);
+  
+          if (metaRes.ok) {
+            const contentType = metaRes.headers.get("content-type") || "";
+  
+            if (contentType.includes("application/json")) {
+              const metaData = await metaRes.json();
+  
+              // 🔥 auto fix ipfs images
+              if (metaData?.image?.startsWith("ipfs://")) {
+                metaData.image = `https://gateway.pinata.cloud/ipfs/${metaData.image.replace(
+                  "ipfs://",
+                  ""
+                )}`;
+              }
+  
+              setMetadata(metaData);
+            }
+          }
+        } catch (err) {
+          console.warn("Metadata load failed:", err);
+        }
       }
-
-      // Fetch trades
+  
+      // ───────── TRADES FETCH ─────────
       const tradesRes = await fetch(`${API_URL}/api/tokens/${mint}/trades`);
-      const tradesData = await tradesRes.json();
-      setTrades(tradesData.trades);
-
+      if (tradesRes.ok) {
+        const tradesData = await tradesRes.json();
+        setTrades(tradesData.trades || []);
+      }
+  
       setIsLoading(false);
     } catch (err) {
       console.error("Failed to fetch token:", err);
-      toast.error("Token not found");
-      return;
+      setIsLoading(false);
     }
   }
 
@@ -92,6 +147,8 @@ export function TokenPage() {
             Share ↗
           </button>
         </div>
+
+        
 
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -205,6 +262,24 @@ export function TokenPage() {
 
             {/* Trade History */}
             <TradeHistory trades={trades} />
+
+            {isCreator && (
+  <div className="flex gap-2 mt-4">
+    <button
+      onClick={hideFromProfile}
+      className="px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white text-sm"
+    >
+      Hide from Profile
+    </button>
+
+    <button
+      onClick={archiveToken}
+      className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-yellow-500 text-white text-sm"
+    >
+      Archive Token
+    </button>
+  </div>
+)}
           </div>
         </div>
       </div>

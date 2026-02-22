@@ -14,6 +14,10 @@ export const tokens = pgTable("tokens", {
   totalSupply: numeric("total_supply").notNull().default("0"),
   virtualSol: numeric("virtual_sol").notNull(),
   virtualToken: numeric("virtual_token").notNull(),
+  hidden: boolean("hidden").notNull().default(false),
+  hiddenReason: text("hidden_reason"), 
+  creatorHidden: boolean("creator_hidden").notNull().default(false),
+  archived: boolean("archived").notNull().default(false),
 });
 
 export const trades = pgTable("trades", {

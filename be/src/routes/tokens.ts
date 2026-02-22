@@ -15,12 +15,18 @@ app.get("/", async (c) => {
     let result;
     if (sort === "graduated") {
       result = await baseQuery
-        .where(eq(tokens.isGraduated, true))
+      .where(
+        and(
+          eq(tokens.hidden, false),
+          eq(tokens.archived, false),
+          eq(tokens.creatorHidden, false)
+        )
+      )
         .orderBy(desc(tokens.createdAt))
         .limit(limit);
   
     } else if (sort === "trending") {
-      // ⭐ Trending = most SOL raised / activity proxy
+      
       result = await baseQuery
         .orderBy(desc(tokens.realSolBalance))
         .limit(limit);
@@ -66,12 +72,28 @@ app.get("/search", async (c) => {
   return c.json({ tokens: result });
 });
 
+app.get("/admin/all", async (c) => {
+  const result = await db
+    .select()
+    .from(tokens)
+    .orderBy(desc(tokens.createdAt));
+
+  return c.json({ tokens: result });
+});
+
 
 // GET /tokens/:mint — single token details
 app.get("/:mint", async (c) => {
   const mint = c.req.param("mint");
 
-  const token = await db.select().from(tokens).where(eq(tokens.mint, mint)).limit(1);
+  const token = await db.select().from(tokens).where(
+    and(
+      eq(tokens.mint, mint),
+      eq(tokens.hidden, false),
+      eq(tokens.creatorHidden, false),
+      eq(tokens.archived, false)
+    )
+  )
 
   if (!token.length) {
     return c.json({ error: "Token not found" }, 404);
@@ -108,6 +130,77 @@ app.get("/:mint/trades", async (c) => {
 
   return c.json({ trades: result });
 });
+
+app.get("/check-symbol/:symbol", async (c) => {
+  const symbol = c.req.param("symbol").toUpperCase();
+
+  const existing = await db
+    .select()
+    .from(tokens)
+    .where(eq(tokens.symbol, symbol))
+    .limit(1);
+
+  return c.json({
+    exists: existing.length > 0,
+    symbol,
+  });
+});
+
+
+
+app.post("/hide/:mint", async (c) => {
+  const adminKey = c.req.header("x-admin-key");
+
+  if (adminKey !== process.env.ADMIN_SECRET) {
+    return c.json({ error: "Unauthorized" }, 401);
+  }
+
+  const mint = c.req.param("mint");
+  const { reason } = await c.req.json();
+
+  await db.update(tokens).set({
+    hidden: true,
+    hiddenReason: reason || "duplicate",
+  }).where(eq(tokens.mint, mint));
+
+  return c.json({ success: true });
+});
+
+// POST /api/tokens/unhide/:mint
+app.post("/unhide/:mint", async (c) => {
+  const mint = c.req.param("mint");
+
+  await db
+    .update(tokens)
+    .set({
+      hidden: false,
+      hiddenReason: null,
+    })
+    .where(eq(tokens.mint, mint));
+
+  return c.json({ success: true });
+});
+app.post("/creator/hide/:mint", async (c) => {
+  const mint = c.req.param("mint");
+
+  await db
+    .update(tokens)
+    .set({ creatorHidden: true })
+    .where(eq(tokens.mint, mint));
+
+  return c.json({ success: true });
+});
+app.post("/creator/archive/:mint", async (c) => {
+  const mint = c.req.param("mint");
+
+  await db
+    .update(tokens)
+    .set({ archived: true })
+    .where(eq(tokens.mint, mint));
+
+  return c.json({ success: true });
+});
+
 
 
 export default app;
