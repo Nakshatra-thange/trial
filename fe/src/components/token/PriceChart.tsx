@@ -54,7 +54,7 @@ export default function PriceChart({ trades, currentPrice }: PriceChartProps) {
      * lightweight-charts v5 syntax
      */
     const lineSeries = chart.addSeries(LineSeries, {
-      color: "#10b981",
+      color: "#b45309",
       lineWidth: 2,
     });
 
@@ -106,7 +106,7 @@ export default function PriceChart({ trades, currentPrice }: PriceChartProps) {
     <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-medium text-zinc-400 uppercase tracking-wide">Price Chart</h3>
-        <div className="text-xl font-bold text-emerald-400 font-mono">
+        <div className="text-xl font-bold text-amber-600 font-mono">
           {currentPrice.toFixed(8)} SOL
         </div>
       </div>

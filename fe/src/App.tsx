@@ -5,7 +5,7 @@ import HomePage from "@/pages/HomePage";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { DisconnectBanner } from "@/components/DisconnectBanner";
 import { Toaster } from "sonner";
-
+import AdminPage from "@/pages/AdminPage";
 
 export default function App() {
   return (
@@ -17,6 +17,8 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/create" element={<CreateTokenPage />} />
           <Route path="/token/:mint" element={<TokenPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+
         </Routes>
 
         <Toaster

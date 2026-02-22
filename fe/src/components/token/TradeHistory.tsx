@@ -48,11 +48,11 @@ export function TradeHistory({ trades }: TradeHistoryProps) {
             >
               <div className="flex items-center gap-3">
                 {/* Buy/Sell dot */}
-                <div className={`w-2 h-2 rounded-full flex-shrink-0 ${trade.isBuy ? "bg-emerald-500" : "bg-red-500"}`} />
+                <div className={`w-2 h-2 rounded-full flex-shrink-0 ${trade.isBuy ? "bg-amber-600" : "bg-red-500"}`} />
                 <div>
                   <p className="text-white text-sm">
                     <span className="text-zinc-400 font-mono text-xs">{truncateAddress(trade.trader)}</span>
-                    <span className={`mx-1.5 text-xs font-medium ${trade.isBuy ? "text-emerald-500" : "text-red-500"}`}>
+                    <span className={`mx-1.5 text-xs font-medium ${trade.isBuy ? "text-amber-600" : "text-red-500"}`}>
                       {trade.isBuy ? "bought" : "sold"}
                     </span>
                     <span className="font-mono text-xs text-zinc-300">{tokenAmount}</span>

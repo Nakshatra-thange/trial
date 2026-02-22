@@ -27,13 +27,13 @@ button {
 /* Wallet adapter button overrides */
 .wallet-adapter-button {
   border-radius: 12px !important;
-  background-color: #10b981 !important;
+  background-color: #b45309 !important;
   font-family: 'Inter', sans-serif !important;
   font-weight: 600 !important;
 }
 
 .wallet-adapter-button:hover {
-  background-color: #059669 !important;
+  background-color: #92400e !important;
 }
 
 /* Number input: hide spinner arrows */
@@ -44,4 +44,12 @@ input[type='number']::-webkit-inner-spin-button {
 }
 input[type='number'] {
   -moz-appearance: textfield;
+}
+
+/* Gradient text utility (muted amber) */
+.text-gradient-amber {
+  background: linear-gradient(90deg, #a8a29e 0%, #b45309 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

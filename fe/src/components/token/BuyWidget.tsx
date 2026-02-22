@@ -143,7 +143,7 @@ export default function BuyWidget({ mint, virtualSol, virtualToken, isGraduated,
             onChange={(e) => setSolInput(e.target.value)}
             placeholder="0.0"
             step="0.001"
-            className="flex-1 px-4 py-3 rounded-xl bg-black border border-zinc-700 text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 transition-colors duration-200 font-mono"
+            className="flex-1 px-4 py-3 rounded-xl bg-black border border-zinc-700 text-white placeholder-zinc-600 focus:outline-none focus:border-amber-600 transition-colors duration-200 font-mono"
             disabled={isLoading || isGraduated}
           />
           <button
@@ -170,7 +170,7 @@ export default function BuyWidget({ mint, virtualSol, virtualToken, isGraduated,
       <button
         onClick={handleBuy}
         disabled={isLoading || !solInput || parseFloat(solInput) <= 0 || isGraduated}
-        className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 disabled:bg-zinc-800 disabled:text-zinc-600 disabled:cursor-not-allowed text-white font-semibold transition-colors duration-200"
+        className="w-full py-3.5 rounded-xl bg-amber-600/90 hover:bg-amber-700 disabled:bg-zinc-800 disabled:text-zinc-600 disabled:cursor-not-allowed text-white font-semibold transition-colors duration-200"
       >
         {isLoading ? "Buying..." : isGraduated ? "Trading Closed" : "Buy Now"}
       </button>

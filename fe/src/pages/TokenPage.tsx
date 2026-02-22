@@ -60,7 +60,7 @@ export function TokenPage() {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
-          <div className="w-10 h-10 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-10 h-10 border-2 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-zinc-500 text-sm">Loading token...</p>
         </div>
       </div>
@@ -93,11 +93,11 @@ export function TokenPage() {
           </button>
         </div>
 
-        {/* Main Grid */}
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column — Image + Info */}
+          
           <div className="space-y-4">
-            {/* Token Image */}
+            
             {metadata?.image && (
               <div className="bg-zinc-900 rounded-xl p-3 border border-zinc-800">
                 <img
@@ -110,8 +110,8 @@ export function TokenPage() {
 
             {/* Token Info */}
             <div className="bg-zinc-900 rounded-xl p-5 border border-zinc-800">
-              <h1 className="text-xl font-bold text-white mb-1">
-                {token.name}{" "}
+              <h1 className="text-xl font-bold mb-1">
+                <span className="bg-gradient-to-r from-zinc-300 to-amber-600 bg-clip-text text-transparent">{token.name}</span>{" "}
                 <span className="text-zinc-500 font-normal text-base">({token.symbol})</span>
               </h1>
               {metadata?.description && (
@@ -143,7 +143,7 @@ export function TokenPage() {
                 </div>
                 <div className="w-full bg-zinc-800 rounded-full h-1.5">
                   <div
-                    className="bg-emerald-500 h-1.5 rounded-full transition-all duration-500"
+                    className="bg-amber-600 h-1.5 rounded-full transition-all duration-500"
                     style={{ width: `${progressPercent}%` }}
                   />
                 </div>
@@ -151,8 +151,8 @@ export function TokenPage() {
               </div>
 
               {token.isGraduated && (
-                <div className="mt-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
-                  <p className="text-amber-400 text-sm font-medium">Graduated</p>
+                <div className="mt-4 p-3 rounded-lg bg-amber-600/10 border border-amber-700/20">
+                  <p className="text-amber-600 text-sm font-medium">Graduated</p>
                   <p className="text-amber-600 text-xs mt-0.5">Trading is now closed</p>
                 </div>
               )}
@@ -169,7 +169,7 @@ export function TokenPage() {
                 <Tabs.List className="flex border-b border-zinc-800 mb-5">
                   <Tabs.Trigger
                     value="buy"
-                    className="flex-1 py-2.5 text-center text-sm font-medium text-zinc-500 data-[state=active]:text-emerald-500 data-[state=active]:border-b-2 data-[state=active]:border-emerald-500 transition-colors duration-200"
+                    className="flex-1 py-2.5 text-center text-sm font-medium text-zinc-500 data-[state=active]:text-amber-600 data-[state=active]:border-b-2 data-[state=active]:border-amber-600 transition-colors duration-200"
                   >
                     Buy
                   </Tabs.Trigger>

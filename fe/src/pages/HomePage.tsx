@@ -23,10 +23,10 @@ export default function HomePage() {
       <header className="border-b border-zinc-800 bg-zinc-900/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-3xl font-bold text-white">SMOOTH</h1>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-zinc-300 to-amber-700 bg-clip-text text-transparent">SMOOTH</h1>
             <button
               onClick={() => navigate("/create")}
-              className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-colors"
+              className="px-6 py-3 rounded-xl bg-amber-600/90 hover:bg-amber-700 text-white font-semibold transition-colors"
             >
               + Create Token
             </button>
@@ -90,7 +90,7 @@ export default function HomePage() {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">
+            <h3 className="text-xl font-semibold bg-gradient-to-r from-zinc-400 to-amber-700/90 bg-clip-text text-transparent mb-2">
               {search ? "No tokens found" : "No tokens yet"}
             </h3>
             <p className="text-zinc-400 mb-6">
@@ -101,7 +101,7 @@ export default function HomePage() {
             {!search && (
               <button
                 onClick={() => navigate("/create")}
-                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-colors"
+                className="px-6 py-3 rounded-xl bg-amber-600/90 hover:bg-amber-700 text-white font-semibold transition-colors"
               >
                 Create Token
               </button>

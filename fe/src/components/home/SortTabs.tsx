@@ -29,7 +29,7 @@ export function SortTabs({ selected, onChange }: SortTabsProps) {
         >
           {tab.label}
           {selected === tab.value && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500" />
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-600" />
           )}
         </button>
       ))}

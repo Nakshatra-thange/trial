@@ -50,8 +50,8 @@ export default function ImageUpload({ onImageSelect, currentImage }: ImageUpload
         className={`
           border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-colors duration-200
           ${isDragActive
-            ? "border-emerald-500 bg-emerald-500/5"
-            : "border-zinc-700 hover:border-emerald-500 hover:bg-zinc-900/50"
+            ? "border-amber-600 bg-amber-600/5"
+            : "border-zinc-700 hover:border-amber-600 hover:bg-zinc-900/50"
           }
         `}
       >

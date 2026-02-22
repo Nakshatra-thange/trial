@@ -26,7 +26,7 @@ export function DisconnectBanner() {
   if (!show) return null;
 
   return (
-    <div className="fixed top-0 left-0 right-0 bg-amber-500/10 border-b border-amber-500/20 text-amber-400 px-4 py-2.5 z-50 backdrop-blur-sm">
+    <div className="fixed top-0 left-0 right-0 bg-amber-600/10 border-b border-amber-700/20 text-amber-600 px-4 py-2.5 z-50 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-3">
           <p className="font-medium text-sm">Wallet disconnected</p>
