@@ -2,10 +2,6 @@ const LAMPORTS_PER_SOL = 1_000_000_000;
 const TOKEN_DECIMALS = 1_000_000; // 6 decimals
 const PLATFORM_FEE_BPS = 100; // 1%
 
-/**
- * Calculate how many tokens user receives for given SOL input
- * Uses constant product formula: x * y = k
- */
 export function calculateTokensOut(
   virtualSolReserve: number,  // in lamports
   virtualTokenReserve: number, // in base units
@@ -18,9 +14,7 @@ export function calculateTokensOut(
   return tokensOut;
 }
 
-/**
- * Calculate how much SOL user receives for given token input
- */
+
 export function calculateSolOut(
   virtualSolReserve: number,
   virtualTokenReserve: number,
@@ -43,9 +37,7 @@ export function deductFee(solAmount: number): [number, number] {
   return [afterFee, fee];
 }
 
-/**
- * Calculate current price per token in SOL
- */
+
 export function calculatePrice(
   virtualSolReserve: number,
   virtualTokenReserve: number
@@ -56,10 +48,7 @@ export function calculatePrice(
   return solInSol / tokensInWhole;
 }
 
-/**
- * Add slippage tolerance to minimum output
- * Default 1% slippage = user accepts up to 1% worse price
- */
+
 export function applySlippage(amount: number, slippageBps: number = 100): number {
   return Math.floor(amount * (10_000 - slippageBps) / 10_000);
 }
