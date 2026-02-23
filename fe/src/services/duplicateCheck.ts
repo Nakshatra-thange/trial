@@ -25,7 +25,7 @@ export async function isSymbolTaken(symbol: string): Promise<boolean> {
     console.log(`Found ${accounts.length} program accounts`);
 
     // Parse each account and check if it's a TokenMeta with matching symbol
-    for (const { account, pubkey } of accounts) {
+    for (const { account, pubkey:_pubkey} of accounts) {
       try {
         const data = account.data;
         

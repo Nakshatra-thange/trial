@@ -6,7 +6,7 @@ interface ImageUploadProps {
   currentImage?: File | null; // eslint-disable-line @typescript-eslint/no-unused-vars
 }
 
-export default function ImageUpload({ onImageSelect, currentImage }: ImageUploadProps) {
+export default function ImageUpload({ onImageSelect, currentImage:_currentImage }: ImageUploadProps) {
   const [preview, setPreview] = useState<string | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {

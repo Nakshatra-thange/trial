@@ -8,7 +8,7 @@ interface TokenCardProps {
   token: Token;
 }
 
-const LAMPORTS_PER_SOL = 1_000_000_000;
+
 const TOKEN_DECIMALS = 1_000_000;
 
 export function TokenCard({ token }: TokenCardProps) {

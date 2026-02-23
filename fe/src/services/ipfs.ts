@@ -1,5 +1,5 @@
 
-const PINATA_JWT = import.meta.env.VITE_PINATA_JWT;
+
 const PINATA_GATEWAY = import.meta.env.VITE_PINATA_GATEWAY || "https://gateway.pinata.cloud";
 
 export interface TokenMetadata {
