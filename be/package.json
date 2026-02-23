@@ -25,6 +25,7 @@
   "scripts": {
     "dev": "bun src/index.ts",
     "db:generate": "drizzle-kit generate",
+    "start": "bun dist/index.js",
     "build": "bun build src/index.ts --outdir=dist --target=bun",
     "db:push": "drizzle-kit push"
   }
