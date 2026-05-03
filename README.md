@@ -41,7 +41,7 @@ Gas per trade: ~0.00001 SOL
 
 6 ] Quick Start
 
-git clone https://github.com/yourusername/moonshot.git
+git clone https://github.com/Nakshatra-thange/Moonshot
 
 6 ]  Install
 cd be && bun install
